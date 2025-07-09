@@ -12,7 +12,7 @@ permissions:
 
 env:
   PYTHON_VERSION: "3.12"
-  APP_DIR:        "./"
+  APP_DIR:        "src"
   STARTUP_SCRIPT: "main.py"
   APP_NAME:       "game"
   OUTPUT_DIR:     "web"
