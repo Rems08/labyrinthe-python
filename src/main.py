@@ -15,12 +15,13 @@ VIEW_TILES_Y = 13       # height of camera window in tiles (odd)
 SCREEN_W = VIEW_TILES_X * CELL
 SCREEN_H = VIEW_TILES_Y * CELL
 FPS = 60
+PLAYER_SIGHT = 4
 
 FOOTPRINT_TTL = 10 * FPS   # frames footprints persist
 TRACK_INTERVAL = 12        # Jack replans every n frames
 SIGHT_RANGE = 5            # tiles – how far Jack can spot prints / Danny
 PLAYER_SPEED = 4           # pixels per frame (4 → one tile in 4 frames)
-ENEMY_SPEED = 2
+ENEMY_SPEED = 0
 BRAID_PROB = 0.18          # probability to remove a wall when braiding
 MAX_FOOTPRINTS = 300
 
@@ -361,21 +362,36 @@ class Game:
         for y in range(miny, maxy):
             for x in range(minx, maxx):
                 if 0 <= x < MAZE_W and 0 <= y < MAZE_H:
+                    dx_tile = abs(x - self.player.x)
+                    dy_tile = abs(y - self.player.y)
+            
                     u, v = TILE_SNOW if self.grid[y][x] == 1 else TILE_BUSH
                     dx = x * CELL - camx
                     dy = y * CELL - camy
-                    pyxel.blt(dx, dy, 0, u, v, CELL, CELL, 0)
+                    
+                    if dx_tile + dy_tile <= PLAYER_SIGHT:
+                        u, v = (TILE_SNOW if self.grid[y][x] == 1 else TILE_BUSH)
+                        pyxel.blt(dx, dy, 0, u, v, CELL, CELL, 0)
+                    else:
+                        pyxel.rect(dx, dy, CELL, CELL, 0)
         # footprints & actors ----------------------------------------
         for fp in self.footprints:
             fp.draw(camx, camy)
         self.player.draw(camx, camy)
-        self.enemy.draw(camx, camy)
+        
+        dx_e = abs(self.enemy.x - self.player.x)
+        dy_e = abs(self.enemy.y - self.player.y)
+        if dx_e + dy_e <= PLAYER_SIGHT:
+            self.enemy.draw(camx, camy)
         # highlight exit if on screen ---------------------------------
         ex, ey = self.exit
-        dx = ex * CELL - camx
-        dy = ey * CELL - camy
-        if -CELL < dx < SCREEN_W and -CELL < dy < SCREEN_H:
-            pyxel.rectb(dx+1, dy+1, CELL-2, CELL-2, 11)
+        dx_tile = abs(ex - self.player.x)
+        dy_tile = abs(ey - self.player.y)
+        if dx_tile + dy_tile <= PLAYER_SIGHT:
+            dx = ex * CELL - camx
+            dy = ey * CELL - camy
+            if -CELL < dx < SCREEN_W and -CELL < dy < SCREEN_H:
+                pyxel.rectb(dx+1, dy+1, CELL-2, CELL-2, 11)
         # overlay ------------------------------------------------------
         if self.state == "WIN":
             pyxel.text(SCREEN_W//2-20, SCREEN_H//2, "YOU ESCAPED!", 10)
