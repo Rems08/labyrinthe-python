@@ -21,7 +21,7 @@ FOOTPRINT_TTL = 10 * FPS   # frames footprints persist
 TRACK_INTERVAL = 12        # Jack replans every n frames
 SIGHT_RANGE = 5            # tiles – how far Jack can spot prints / Danny
 PLAYER_SPEED = 4           # pixels per frame (4 → one tile in 4 frames)
-ENEMY_SPEED = 0
+ENEMY_SPEED = 2
 BRAID_PROB = 0.18          # probability to remove a wall when braiding
 MAX_FOOTPRINTS = 300
 
