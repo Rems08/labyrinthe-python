@@ -1,0 +1,19 @@
+services:
+  pyxel-web:
+    # ── Build the image from your Dockerfile ──
+    build:
+      context: .            # path to the directory with Dockerfile
+      dockerfile: Dockerfile
+      args:
+        APP_DIR:        src
+        STARTUP_SCRIPT: main.py
+        APP_NAME:       game
+        OUTPUT_DIR:     web
+
+    # ── Expose Nginx on the host ──
+    ports:
+      - "8000:80"          # host:container
+
+    # Optional niceties
+    container_name: pyxel-web
+    restart: unless-stopped
