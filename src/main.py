@@ -299,17 +299,17 @@ class Game:
     # ------------------------------------------------------------------
     def _load_images(self):
         # tiles (bank 0)
-        pyxel.images[0].load(0, 0, "src/sprites/labyrinth/snow.png")
-        pyxel.images[0].load(CELL, 0, "src/sprites/labyrinth/bush.png")
-        pyxel.images[0].load(CELL*2, 0, "src/sprites/labyrinth/snow-footstep.png")
+        pyxel.images[0].load(0, 0, "sprites/labyrinth/snow.png")
+        pyxel.images[0].load(CELL, 0, "sprites/labyrinth/bush.png")
+        pyxel.images[0].load(CELL*2, 0, "sprites/labyrinth/snow-footstep.png")
         # Danny (bank 1) – 3 orientations packed horizontally
-        pyxel.images[1].load(0, 0, "src/sprites/danny/danny-front.png")
-        pyxel.images[1].load(CELL, 0, "src/sprites/danny/danny-back.png")
-        pyxel.images[1].load(CELL*2, 0, "src/sprites/danny/danny-side.png")
+        pyxel.images[1].load(0, 0, "sprites/danny/danny-front.png")
+        pyxel.images[1].load(CELL, 0, "sprites/danny/danny-back.png")
+        pyxel.images[1].load(CELL*2, 0, "sprites/danny/danny-side.png")
         # Jack (bank 2)
-        pyxel.images[2].load(0, 0, "src/sprites/jack/jack-front.png")
-        pyxel.images[2].load(CELL, 0, "src/sprites/jack/jack-back.png")
-        pyxel.images[2].load(CELL*2, 0, "src/sprites/jack/jack-side.png")
+        pyxel.images[2].load(0, 0, "sprites/jack/jack-front.png")
+        pyxel.images[2].load(CELL, 0, "sprites/jack/jack-back.png")
+        pyxel.images[2].load(CELL*2, 0, "sprites/jack/jack-side.png")
 
     # ------------------------------------------------------------------
     def update(self):
